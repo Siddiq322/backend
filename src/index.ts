@@ -28,26 +28,15 @@ app.use('/api/admin', adminRoutes);
 
 app.use(errorHandler);
 
-// Initialize database connection for serverless
-if (!IS_MOCK && MONGO_URI) {
-  connectMongo(MONGO_URI).catch(console.error);
-} else {
-  resetMockData();
-}
-
-// For local development
-if (process.env.NODE_ENV !== 'production') {
-  (async () => {
-    if (!IS_MOCK) {
-      await connectMongo(MONGO_URI);
-      console.log('Connected to Mongo');
-    } else {
-      resetMockData();
-      console.log('Running in mock mode');
-    }
-    attachWs(app, PORT);
-  })();
-}
-
-// Export for Vercel serverless
-export default app;
+(async () => {
+  if (!IS_MOCK) {
+    await connectMongo(MONGO_URI);
+    // eslint-disable-next-line no-console
+    console.log('Connected to Mongo');
+  } else {
+    resetMockData();
+    // eslint-disable-next-line no-console
+    console.log('Running in mock mode');
+  }
+  attachWs(app, PORT);
+})();
