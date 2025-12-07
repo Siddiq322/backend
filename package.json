@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "tsx src/index.ts",
     "start": "node dist/index.js",
-    "build": "tsc",
+    "build": "npx tsc",
+    "vercel-build": "echo 'Building for Vercel...'",
     "test": "vitest run",
     "seed": "ts-node src/mock/seedGenerator.ts --seed=123",
     "seed-mongo": "tsx scripts/seedMongo.ts"
